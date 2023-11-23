@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cover Page and PNG Over Video</title>
+  <title>Video with Play Button and Generated Poster Image</title>
   <style>
     body, html {
       margin: 0;
@@ -28,41 +28,75 @@
       object-fit: cover;
       z-index: -1;
     }
-    #cover-image {
+    #play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       cursor: pointer;
-      z-index: 1;
-      max-width: 100%;
-      height: auto;
+      z-index: 2;
+      width: 70px;
+      height: 70px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #play-button::after {
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-left: 25px solid #333;
     }
     #bottom-image {
       position: absolute;
       bottom: 20px; /* Adjust as needed */
       left: 50%;
       transform: translateX(-50%);
-      z-index: 2;
+      z-index: 1;
       max-width: 200px; /* Adjust size as needed */
     }
   </style>
 </head>
 <body>
   <div id="video-container">
-    <video id="video-background" preload="metadata" poster="your_poster_image.jpg">
+    <video id="video-background" preload="metadata">
       <source src="mymonkeyisland.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
 
-  <img src="cover_page.jpg" alt="Cover Image" id="cover-image" onclick="startVideo()">
   <img src="British-Airways-Logo.png" alt="Bottom Image" id="bottom-image">
+
+  <div id="play-button" onclick="startVideo()"></div>
   
   <script>
     function startVideo() {
-      document.getElementById('cover-image').style.display = 'none';
-      document.getElementById('bottom-image').style.display = 'none';
+      document.getElementById('play-button').style.display = 'none';
       document.getElementById('video-container').style.display = 'block';
       var video = document.getElementById('video-background');
       video.play();
     }
+
+    // Create a placeholder poster image using canvas
+    document.addEventListener('DOMContentLoaded', function() {
+      var canvas = document.createElement('canvas');
+      canvas.width = 640; // Set your preferred dimensions
+      canvas.height = 360; // Set your preferred dimensions
+      var ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#f0f0f0'; // Set your preferred background color
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#333'; // Set your preferred text color
+      ctx.font = '24px Arial'; // Set your preferred font
+      ctx.textAlign = 'center';
+      ctx.fillText('Video Poster', canvas.width / 2, canvas.height / 2);
+      var posterURL = canvas.toDataURL('image/jpeg'); // Convert canvas to data URL
+      var video = document.getElementById('video-background');
+      video.setAttribute('poster', posterURL); // Set poster attribute of video
+    });
   </script>
 </body>
 </html>
