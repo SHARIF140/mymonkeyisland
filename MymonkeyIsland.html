@@ -1,38 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Full-Screen Video Background</title>
+  <title>Full-Screen Video with Picture and Play Button</title>
   <style>
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
     }
     #video-background {
-      position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       z-index: -1;
     }
-    #logo {
-      position: fixed;
+    #bottom-image {
+      position: absolute;
       bottom: 20px; /* Adjust as needed */
       left: 50%;
       transform: translateX(-50%);
       z-index: 1;
-      max-width: 150px; /* Adjust size as needed */
+      max-width: 200px; /* Adjust size as needed */
+    }
+    #play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      z-index: 2;
+      width: 0;
+      height: 0;
+      border-top: 30px solid transparent;
+      border-bottom: 30px solid transparent;
+      border-left: 45px solid white;
     }
   </style>
 </head>
 <body>
-  <video autoplay loop playsinline preload="auto" id="video-background">
-    <source src="mymonkeyisland.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <div id="video-container">
+    <video id="video-background" preload="metadata" poster="your_poster_image.jpg">
+      <source src="mymonkeyisland.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   
-  <img src="British-Airways-Logo.png" alt="Logo" id="logo">
+    <div id="play-button" onclick="playVideo()"></div>
+  </div>
+
+  <img src="British-Airways-Logo.png" alt="Bottom Image" id="bottom-image">
+  
+  <script>
+    function playVideo() {
+      var video = document.getElementById('video-background');
+      video.play();
+      document.getElementById('play-button').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
+
