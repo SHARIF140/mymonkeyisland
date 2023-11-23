@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Video with Play Button and Image at Bottom Center</title>
+  <title>Video with Play Button and Image</title>
   <style>
     body, html {
       margin: 0;
@@ -9,15 +9,16 @@
       height: 100%;
       overflow: hidden;
       position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background-color: #f0f0f0; /* Set your desired background color */
     }
     #video-container {
       position: relative;
       width: 100vw;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      overflow: hidden;
     }
     #video-background {
       width: 100%;
@@ -28,12 +29,12 @@
     #play-button,
     #bottom-image {
       position: absolute;
-      cursor: pointer;
-    }
-    #play-button {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
+    #play-button {
       z-index: 2;
       width: 70px;
       height: 70px;
